@@ -2,8 +2,9 @@ import re
 import os
 path = os.path.dirname(os.path.abspath(__file__))
 
+output = open("UML_Class_Diagram_Text.txt","w")
 for files in os.listdir(path):
-    if os.path.isfile(os.path.join(path, files)) and files[-3:] != ".py":
+    if os.path.isfile(os.path.join(path, files)) and files[-3:] != ".py" and files[-4:] != ".txt":
             name = files
             java_file = open(name,"r")
             
@@ -106,13 +107,16 @@ for files in os.listdir(path):
                 
                 depth += len(re.findall("{",i))
                 depth -= len(re.findall("}",i))
-            print("-------------------------------------------------------------------")
+            output.write("-------------------------------------------------------------------\n")
             for i in class_name:
-                print(i)
-            print("-------------------------------------------------------------------")
+                output.write(i + "\n")
+            output.write("-------------------------------------------------------------------\n")
             for i in attributes:
-                print(i)
-            print("-------------------------------------------------------------------")
+                output.write(i + "\n")
+            output.write("-------------------------------------------------------------------\n")
             for i in method_signatures:
-                print(i)
-            print("--------------------------------------------------------------------------------------")
+                output.write(i + "\n")
+            output.write("--------------------------------------------------------------------------------------\n")
+    output.flush()
+            
+output.close()
